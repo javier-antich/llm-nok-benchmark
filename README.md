@@ -35,7 +35,7 @@ NOTE: The benchmark requires both an OpenRouter.ai account and an OpenAI account
 
     --llms: If not specified it will use the `./llm_under_test_csv` file. If specified it must be a text file with the models to be tested in different rows, each model out of those supported by OpenRouter.ai
 
-    --vendors: If not specified it will use `./vendor_os_list.csv` file. If specified it must be a texxt file with the vendor OS names to be evaluated in different rows. Each Vendor OS name must match with the corresponding column in the benchmark xls file.
+    --vendors: If not specified it will use `./vendor_os_list.csv` file. If specified it must be a text file with the vendor OS names to be evaluated in different rows. Each Vendor OS name must match with the corresponding column in the benchmark xls file.
 
     --output: The script will generate a .txt file with the summary of the results. By default the file generated will be named `benchmark_results.txt`. A different file name can be specified using this argument
 
