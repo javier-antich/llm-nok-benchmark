@@ -1,0 +1,11 @@
+openai/gpt-4
+openai/gpt-4-1106-preview
+anthropic/claude-2.0
+anthropic/claude-2
+meta-llama/codellama-34b-instruct
+alpindale/goliath-120b
+google/palm-2-codechat-bison
+nousresearch/nous-hermes-llama2-70b
+xwin-lm/xwin-lm-70b
+phind/phind-codellama-34b
+mistralai/mistral-7b-instruct

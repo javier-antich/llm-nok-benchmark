@@ -1,0 +1,15 @@
+python-dotenv
+netmiko
+openai==0.28
+numpy
+pandas
+requests
+pyyaml
+paramiko
+textfsm
+comet-llm
+matplotlib
+seaborn
+tabulate
+openpyxl
+joblib
