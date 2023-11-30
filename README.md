@@ -32,9 +32,13 @@ NOTE: The benchmark requires both an OpenRouter.ai account and an OpenAI account
 - Run the benchmark script `nok_benchmark.py`. It supports the following parameters
 
     --benchmark  : If not specified it will point to the `./benchmarks/benchmark.xlsx` file. If a different file is specified it must follow the same format as the default.
+
     --llms: If not specified it will use the `./llm_under_test_csv` file. If specified it must be a text file with the models to be tested in different rows, each model out of those supported by OpenRouter.ai
+
     --vendors: If not specified it will use `./vendor_os_list.csv` file. If specified it must be a texxt file with the vendor OS names to be evaluated in different rows. Each Vendor OS name must match with the corresponding column in the benchmark xls file.
+
     --output: The script will generate a .txt file with the summary of the results. By default the file generated will be named `benchmark_results.txt`. A different file name can be specified using this argument
+
 
 ```
 (benchmk) (base) javier@Javiers-MBP LLMBenchmark % python nok_benchmark_p.py --llms llm_test.csv    
@@ -204,8 +208,11 @@ You can find the details in the file `benchmark_results.txt`
 ## Contributing
 
 If you want to contribute to the benchmark in some way pls reach out.
+
 Contact:
+
 javier@anetta.ai
+
 @anettaAI
 
 Ways in which the Benchmark could be improved:
