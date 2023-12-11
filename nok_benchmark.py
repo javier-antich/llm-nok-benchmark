@@ -231,38 +231,58 @@ evaluation_request_prompt_template = """
 """
 
 
+#added inline explanation 
 
 def evaluate_vendor_model(benchmark_file,vendor_os,model):
+    # Load the benchmark data from the Excel file
     bench_df = load_excel_to_dataframe(benchmark_file)
+    # Select only the "target" and vendor_os columns from the DataFrame
     bench_df = bench_df[["target",vendor_os]]
+    # Initialize an empty list to store the evaluation results
     evaluation = []
+
+    # Iterate over each row in the DataFrame
     for i,item in bench_df.iterrows():
-        
+        # Construct the command request prompt using the target and vendor_os
         command_request_prompt = 'TARGET: '+str(item["target"])+'\nVENDOR_OS: '+vendor_os+'\n'+command_request_prompt_template
+        # Get the command response from the model
         command_received = get_completion(command_request_prompt,model=model,DEBUG_MODE=DEBUG_MODE,use_openai=False)
+
         try:
+            # Try to parse the command response as JSON
             command_received = json.loads(command_received)
+            # If there is an error in the command response
             if 'error' in command_received:
+                # Create an evaluation response with "NOK" accuracy and "LLM error" rationale
                 evaluation_response = {
                     "response_accuracy":"NOK",
                     "rationale":"LLM error"
                 }
             else:
+                # If there is no error, construct the evaluation request prompt using the target, vendor_os, actual command, and student response
                 evaluation_request_prompt = 'TARGET: '+str(item["target"])+'\nVENDOR_OS: '+vendor_os+'\nACTUAL_COMMAND: '+item[vendor_os]+'\nSTUDENT_RESPONSE: '+command_received["cli_command"]+'\n'+evaluation_request_prompt_template
+                # Get the evaluation response from the baseline model
                 evaluation_response = get_completion(evaluation_request_prompt,model=BASELINE_MODEL,DEBUG_MODE=DEBUG_MODE,use_openai=True)
+                # Parse the evaluation response as JSON
                 evaluation_response = json.loads(evaluation_response)
+                # Print a dot to indicate progress
                 print('.',end='',flush=True)
+                # Add the command response to the evaluation response
                 evaluation_response['LLM response']=command_received['cli_command']
 
         except:
+            # If an exception occurs, create an evaluation response with "NOK" accuracy and "Bad LLM response" rationale
             evaluation_response = {
                     "response_accuracy":"NOK",
                     "rationale":"Bad LLM response"
                 }
+        # Add the question and expected answer to the evaluation response
         evaluation_response['Question']=item['target']
         evaluation_response['Expected answer']=item[vendor_os]
+        # Add the evaluation response to the evaluation list
         evaluation.append(evaluation_response)
         
+    # Return the evaluation list
     return evaluation
 
 
@@ -330,7 +350,7 @@ def pretty_print_dict(dictionary):
 
 
 if __name__ == "__main__":
-   
+    #run like this python nok_benchmark.py --benchmark path_to_benchmark_file --llms path_to_llms_file --vendors path_to_vendors_file --output path_to_output_file
     parser = argparse.ArgumentParser()
     parser.add_argument("--benchmark", default="./benchmarks/benchmark.xlsx")
     parser.add_argument("--llms", default="./llm_under_test.csv")
