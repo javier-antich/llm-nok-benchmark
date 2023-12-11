@@ -351,6 +351,23 @@ def pretty_print_dict(dictionary):
 
 if __name__ == "__main__":
     #run like this python nok_benchmark.py --benchmark path_to_benchmark_file --llms path_to_llms_file --vendors path_to_vendors_file --output path_to_output_file
+    
+    '''
+    
+    Replace path_to_benchmark_file, path_to_llms_file, path_to_vendors_file, and path_to_output_file with the paths to your actual files.
+
+    If you don't provide any arguments, the script will use the default values specified in the argparse.ArgumentParser() call:
+
+    Benchmark file: ./benchmarks/benchmark.xlsx
+    LLMs file: ./llm_under_test.csv
+    Vendors file: ./vendor_os_list.csv
+    Output file: ./benchmark_results.txt
+    After the script finishes running, it will save the benchmark results to the specified output file and generate a bar chart saved as llm_nok_benchmark_results.jpg in the current directory. The chart will also be displayed in the terminal if your environment supports it.
+    
+    '''
+    
+    #or with default values you can run python nok_benchmark.py
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--benchmark", default="./benchmarks/benchmark.xlsx")
     parser.add_argument("--llms", default="./llm_under_test.csv")
